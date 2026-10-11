@@ -41,12 +41,12 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
                     ? isFailed
                       ? "var(--status-failed-bg)"
                       : "var(--status-resolved-bg)"
-                    : "var(--bg-surface-elevated)",
+                    : "var(--color-surface-background)",
                   border: isOutcome
                     ? isFailed
                       ? "1px solid var(--status-failed-border)"
                       : "1px solid var(--status-resolved-border)"
-                    : "1px solid var(--border-subtle)",
+                    : "1px solid var(--color-neutral-divider)",
                   borderRadius: "var(--radius-md)",
                   boxShadow: "var(--shadow-sm)",
                 }}
@@ -58,9 +58,9 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
                     borderRadius: "50%",
                     backgroundColor: isOutcome
                       ? isFailed
-                        ? "rgba(239, 68, 68, 0.2)"
-                        : "rgba(16, 185, 129, 0.2)"
-                      : "rgba(99, 102, 241, 0.2)",
+                        ? "var(--color-state-error-light)"
+                        : "var(--color-state-success-light)"
+                      : "var(--color-primary-light)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -68,33 +68,33 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
                     fontWeight: 800,
                     color: isOutcome
                       ? isFailed
-                        ? "#fca5a5"
-                        : "#6ee7b7"
-                      : "var(--accent-primary)",
+                        ? "var(--color-state-error)"
+                        : "var(--color-state-success)"
+                      : "var(--color-primary)",
                   }}
                 >
                   {index + 1}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: "10px", textTransform: "uppercase", color: "var(--text-dim)", fontWeight: 700, letterSpacing: "0.04em" }}>
+                  <div style={{ fontSize: "10px", textTransform: "uppercase", color: "var(--color-text-placeholder)", fontWeight: 700, letterSpacing: "0.04em" }}>
                     {node.type}
                   </div>
-                  <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--text-main)" }}>
+                  <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-primary)" }}>
                     {node.label}
                   </div>
                 </div>
                 {isOutcome && (
                   <div>
-                    {isFailed ? <AlertCircle size={16} color="#fca5a5" /> : <CheckCircle size={16} color="#6ee7b7" />}
+                    {isFailed ? <AlertCircle size={16} color="var(--color-state-error)" /> : <CheckCircle size={16} color="var(--color-state-success)" />}
                   </div>
                 )}
               </div>
 
               {!isLast && (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "4px 0", color: "var(--text-dim)" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "4px 0", color: "var(--color-neutral-icon)" }}>
                   <ArrowDown size={13} />
                   {rel && (
-                    <span style={{ fontSize: "9.5px", fontFamily: "monospace", color: "var(--accent-cyan)", backgroundColor: "rgba(6, 182, 212, 0.1)", padding: "1px 5px", borderRadius: "3px" }}>
+                    <span style={{ fontSize: "9.5px", fontFamily: "monospace", color: "var(--color-accent-4)", backgroundColor: "var(--color-accent-4-light)", padding: "1px 6px", borderRadius: "3px" }}>
                       :{rel.type}
                     </span>
                   )}
@@ -134,21 +134,21 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
                   gap: "10px",
                   padding: "10px 14px",
                   backgroundColor: step.isRecommendation
-                    ? "rgba(99, 102, 241, 0.1)"
+                    ? "var(--color-primary-light)"
                     : step.isOutcome
                     ? step.isFailed
                       ? "var(--status-failed-bg)"
                       : "var(--status-resolved-bg)"
-                    : "var(--bg-surface-elevated)",
+                    : "var(--color-surface-background)",
                   border: step.isRecommendation
-                    ? "1px solid var(--accent-primary)"
+                    ? "1.5px solid var(--color-primary)"
                     : step.isOutcome
                     ? step.isFailed
                       ? "1px solid var(--status-failed-border)"
                       : "1px solid var(--status-resolved-border)"
-                    : "1px solid var(--border-subtle)",
+                    : "1px solid var(--color-neutral-divider)",
                   borderRadius: "var(--radius-md)",
-                  boxShadow: step.isRecommendation ? "0 0 14px rgba(99, 102, 241, 0.2)" : "var(--shadow-sm)",
+                  boxShadow: step.isRecommendation ? "0 2px 10px rgba(64, 105, 225, 0.16)" : "var(--shadow-sm)",
                 }}
               >
                 <div
@@ -157,12 +157,12 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
                     height: "24px",
                     borderRadius: "50%",
                     backgroundColor: step.isRecommendation
-                      ? "var(--accent-primary)"
+                      ? "var(--color-primary)"
                       : step.isOutcome
                       ? step.isFailed
-                        ? "rgba(239, 68, 68, 0.2)"
-                        : "rgba(16, 185, 129, 0.2)"
-                      : "rgba(99, 102, 241, 0.2)",
+                        ? "var(--color-state-error-light)"
+                        : "var(--color-state-success-light)"
+                      : "var(--color-primary-light)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -172,34 +172,34 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
                       ? "#ffffff"
                       : step.isOutcome
                       ? step.isFailed
-                        ? "#fca5a5"
-                        : "#6ee7b7"
-                      : "var(--accent-primary)",
+                        ? "var(--color-state-error)"
+                        : "var(--color-state-success)"
+                      : "var(--color-primary)",
                   }}
                 >
                   {index + 1}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: "10px", textTransform: "uppercase", color: step.isRecommendation ? "var(--accent-cyan)" : "var(--text-dim)", fontWeight: 700, letterSpacing: "0.04em" }}>
+                  <div style={{ fontSize: "10px", textTransform: "uppercase", color: step.isRecommendation ? "var(--color-primary)" : "var(--color-text-placeholder)", fontWeight: 700, letterSpacing: "0.04em" }}>
                     {step.type}
                   </div>
-                  <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--text-main)" }}>
+                  <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-primary)" }}>
                     {step.label}
                   </div>
                 </div>
                 {step.isOutcome && (
                   <div>
-                    {step.isFailed ? <AlertCircle size={16} color="#fca5a5" /> : <CheckCircle size={16} color="#6ee7b7" />}
+                    {step.isFailed ? <AlertCircle size={16} color="var(--color-state-error)" /> : <CheckCircle size={16} color="var(--color-state-success)" />}
                   </div>
                 )}
-                {step.isRecommendation && <Sparkles size={16} color="var(--accent-primary)" />}
+                {step.isRecommendation && <Sparkles size={16} color="var(--color-primary)" />}
               </div>
 
               {!isLast && (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "4px 0", color: "var(--text-dim)" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "4px 0", color: "var(--color-neutral-icon)" }}>
                   <ArrowDown size={13} />
                   {step.relLabel && (
-                    <span style={{ fontSize: "9.5px", fontFamily: "monospace", color: "var(--accent-cyan)", backgroundColor: "rgba(6, 182, 212, 0.1)", padding: "1px 5px", borderRadius: "3px" }}>
+                    <span style={{ fontSize: "9.5px", fontFamily: "monospace", color: "var(--color-accent-4)", backgroundColor: "var(--color-accent-4-light)", padding: "1px 6px", borderRadius: "3px" }}>
                       :{step.relLabel}
                     </span>
                   )}
@@ -217,14 +217,14 @@ export const GraphPath: React.FC<GraphPathProps> = ({ graphPaths, evidence, sugg
       style={{
         padding: "20px 16px",
         borderRadius: "var(--radius-md)",
-        backgroundColor: "var(--bg-primary)",
-        border: "1px dashed var(--border-subtle)",
+        backgroundColor: "var(--color-surface-background)",
+        border: "1px dashed var(--color-neutral-border)",
         textAlign: "center",
-        color: "var(--text-dim)",
+        color: "var(--color-text-placeholder)",
         fontSize: "12px",
       }}
     >
-      <Layers size={22} color="var(--text-dim)" style={{ marginBottom: "6px" }} />
+      <Layers size={22} color="var(--color-neutral-icon)" style={{ marginBottom: "6px" }} />
       <div>No graph relationships retrieved for this customer.</div>
     </div>
   );

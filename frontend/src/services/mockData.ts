@@ -2,8 +2,29 @@ import type { CustomerProfile, ChatResponse } from "../types";
 
 export const DEMO_CUSTOMERS: CustomerProfile[] = [
   {
+    id: "C-001",
+    name: "Alice Johnson (Scenario A)",
+    tier: "Premium",
+    scenarioLabel: "Scenario A: Failed Attempt",
+    description: "Previous password reset attempt on ticket T-101 failed.",
+  },
+  {
+    id: "C-002",
+    name: "Bob Smith (Scenario B)",
+    tier: "Standard",
+    scenarioLabel: "Scenario B: Contrast Resolved Case",
+    description: "Has resolved billing invoice ticket T-201 with successful browser cache clear.",
+  },
+  {
+    id: "C-003",
+    name: "Charlie Brown (Scenario C)",
+    tier: "Standard",
+    scenarioLabel: "Scenario C: New Customer",
+    description: "Brand new user with empty historical graph records.",
+  },
+  {
     id: "CUST-1042",
-    name: "Alice Smith (Scenario A)",
+    name: "Alice Smith (CUST-1042)",
     tier: "Premium",
     scenarioLabel: "Scenario A: Failed Attempt",
     description: "Previous password reset attempt on ticket T-101 failed.",
@@ -14,13 +35,6 @@ export const DEMO_CUSTOMERS: CustomerProfile[] = [
     tier: "Standard",
     scenarioLabel: "Scenario B: Missing Evidence",
     description: "Has billing ticket T-204, but no server cache clear record.",
-  },
-  {
-    id: "CUST-3099",
-    name: "Charlie Brown (Scenario C)",
-    tier: "Standard",
-    scenarioLabel: "Scenario C: New Customer",
-    description: "Brand new user with empty historical graph records.",
   },
   {
     id: "CUST-4040",
@@ -60,7 +74,7 @@ export function getMockResponseForCustomer(customerId: string, userMessage: stri
   }
 
   // Scenario C: New customer (empty history)
-  if (customerId === "CUST-3099") {
+  if (customerId === "C-003" || customerId === "CUST-3099") {
     return {
       answer: `Welcome to support! No historical support records are available for your account (${customerId}). Based on your request, I will guide you through getting your account configured properly.`,
       evidence: [],
@@ -72,8 +86,8 @@ export function getMockResponseForCustomer(customerId: string, userMessage: stri
     };
   }
 
-  // Scenario B: Missing specific historical evidence
-  if (customerId === "CUST-2055" || msg.includes("session cache") || msg.includes("cache")) {
+  // Scenario B: Missing specific historical evidence or resolved contrast
+  if (customerId === "C-002" || customerId === "CUST-2055" || msg.includes("session cache") || msg.includes("cache")) {
     return {
       answer: "According to your recorded history for ticket T-204, our only documented action was an 'invoice_reissue'. The specific cache-clear action you asked about cannot be confirmed from our available knowledge graph records.",
       evidence: [

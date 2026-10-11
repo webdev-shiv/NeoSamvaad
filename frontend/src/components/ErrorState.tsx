@@ -30,7 +30,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ message, onRetry, onDism
           <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--status-failed-text)" }}>
             Backend Communication Notice
           </div>
-          <div style={{ fontSize: "12px", color: "#fecaca" }}>
+          <div style={{ fontSize: "12px", color: "var(--color-state-error)", opacity: 0.9 }}>
             {message}
           </div>
         </div>
@@ -46,9 +46,9 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ message, onRetry, onDism
               gap: "4px",
               padding: "4px 10px",
               borderRadius: "var(--radius-sm)",
-              backgroundColor: "rgba(255, 255, 255, 0.15)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              color: "#ffffff",
+              backgroundColor: "var(--color-surface-white)",
+              border: "1px solid var(--color-state-error)",
+              color: "var(--color-state-error)",
               fontSize: "11px",
               fontWeight: 600,
               cursor: "pointer",
@@ -64,7 +64,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ message, onRetry, onDism
             style={{
               background: "none",
               border: "none",
-              color: "#fca5a5",
+              color: "var(--color-state-error)",
               cursor: "pointer",
               padding: "2px",
             }}

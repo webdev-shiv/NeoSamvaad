@@ -36,14 +36,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     <div
       style={{
         padding: "16px 24px 20px",
-        backgroundColor: "rgba(16, 23, 42, 0.8)",
-        backdropFilter: "blur(12px)",
-        borderTop: "1px solid var(--border-subtle)",
+        backgroundColor: "var(--color-surface-white)",
+        borderTop: "1px solid var(--color-neutral-divider)",
       }}
     >
       {/* Quick scenario buttons */}
       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px", overflowX: "auto", paddingBottom: "2px" }}>
-        <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--accent-cyan)", display: "flex", alignItems: "center", gap: "4px", flexShrink: 0, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+        <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--color-primary)", display: "flex", alignItems: "center", gap: "4px", flexShrink: 0, textTransform: "uppercase", letterSpacing: "0.04em" }}>
           <Sparkles size={13} /> Quick Prompts:
         </span>
         <button
@@ -52,9 +51,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             fontSize: "11px",
             fontWeight: 600,
             padding: "4px 10px",
-            backgroundColor: "var(--bg-surface-elevated)",
-            border: "1px solid var(--border-subtle)",
-            color: "var(--text-main)",
+            backgroundColor: "var(--color-surface-background)",
+            border: "1px solid var(--color-neutral-divider)",
+            color: "var(--color-text-primary)",
             borderRadius: "var(--radius-full)",
             cursor: "pointer",
             whiteSpace: "nowrap",
@@ -63,7 +62,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             gap: "5px",
           }}
         >
-          <AlertTriangle size={12} color="#ef4444" />
+          <AlertTriangle size={12} color="var(--color-state-error)" />
           <span>A: Failed Attempt</span>
         </button>
         <button
@@ -72,9 +71,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             fontSize: "11px",
             fontWeight: 600,
             padding: "4px 10px",
-            backgroundColor: "var(--bg-surface-elevated)",
-            border: "1px solid var(--border-subtle)",
-            color: "var(--text-main)",
+            backgroundColor: "var(--color-surface-background)",
+            border: "1px solid var(--color-neutral-divider)",
+            color: "var(--color-text-primary)",
             borderRadius: "var(--radius-full)",
             cursor: "pointer",
             whiteSpace: "nowrap",
@@ -83,7 +82,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             gap: "5px",
           }}
         >
-          <Key size={12} color="#f59e0b" />
+          <Key size={12} color="var(--color-secondary)" />
           <span>B: Unrecorded Cache</span>
         </button>
         <button
@@ -92,9 +91,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             fontSize: "11px",
             fontWeight: 600,
             padding: "4px 10px",
-            backgroundColor: "var(--bg-surface-elevated)",
-            border: "1px solid var(--border-subtle)",
-            color: "var(--text-main)",
+            backgroundColor: "var(--color-surface-background)",
+            border: "1px solid var(--color-neutral-divider)",
+            color: "var(--color-text-primary)",
             borderRadius: "var(--radius-full)",
             cursor: "pointer",
             whiteSpace: "nowrap",
@@ -103,7 +102,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             gap: "5px",
           }}
         >
-          <UserCheck size={12} color="#10b981" />
+          <UserCheck size={12} color="var(--color-state-success)" />
           <span>C: New Customer</span>
         </button>
         <button
@@ -112,9 +111,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             fontSize: "11px",
             fontWeight: 600,
             padding: "4px 10px",
-            backgroundColor: "var(--bg-surface-elevated)",
-            border: "1px solid var(--border-subtle)",
-            color: "var(--text-main)",
+            backgroundColor: "var(--color-surface-background)",
+            border: "1px solid var(--color-neutral-divider)",
+            color: "var(--color-text-primary)",
             borderRadius: "var(--radius-full)",
             cursor: "pointer",
             whiteSpace: "nowrap",
@@ -123,7 +122,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             gap: "5px",
           }}
         >
-          <ShieldCheck size={12} color="#8b5cf6" />
+          <ShieldCheck size={12} color="var(--color-accent-1)" />
           <span>E: Injection Test</span>
         </button>
       </div>
@@ -133,11 +132,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           display: "flex",
           alignItems: "flex-end",
           gap: "10px",
-          backgroundColor: "var(--bg-deep)",
-          border: "1px solid var(--border-highlight)",
+          backgroundColor: "var(--color-surface-background)",
+          border: "1px solid var(--color-neutral-border)",
           borderRadius: "var(--radius-lg)",
           padding: "10px 14px",
-          boxShadow: "var(--shadow-md)",
+          boxShadow: "var(--shadow-sm)",
         }}
       >
         <textarea
@@ -153,7 +152,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             border: "none",
             outline: "none",
             resize: "none",
-            color: "var(--text-main)",
+            color: "var(--color-text-primary)",
             fontSize: "13.5px",
             lineHeight: "1.5",
             fontFamily: "var(--font-body)",
@@ -170,11 +169,12 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             width: "38px",
             height: "38px",
             borderRadius: "var(--radius-md)",
-            background: !draftText.trim() || isLoading ? "var(--bg-surface-elevated)" : "var(--grad-primary)",
-            color: !draftText.trim() || isLoading ? "var(--text-dim)" : "#ffffff",
+            background: !draftText.trim() || isLoading ? "var(--color-neutral-divider)" : "var(--color-primary)",
+            color: !draftText.trim() || isLoading ? "var(--color-text-disabled)" : "#ffffff",
             border: "none",
             cursor: !draftText.trim() || isLoading ? "not-allowed" : "pointer",
-            boxShadow: !draftText.trim() || isLoading ? "none" : "0 4px 12px rgba(99, 102, 241, 0.4)",
+            boxShadow: !draftText.trim() || isLoading ? "none" : "0 4px 12px rgba(64, 105, 225, 0.35)",
+            transition: "all 0.2s ease",
           }}
           aria-label="Send message"
         >

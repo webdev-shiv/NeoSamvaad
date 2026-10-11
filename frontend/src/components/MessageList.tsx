@@ -43,23 +43,23 @@ export const MessageList: React.FC<MessageListProps> = ({
             width: "60px",
             height: "60px",
             borderRadius: "var(--radius-lg)",
-            background: "linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%)",
-            border: "1px solid var(--accent-primary)",
+            background: "var(--color-primary-light)",
+            border: "1px solid var(--color-primary)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "var(--accent-primary)",
+            color: "var(--color-primary)",
             marginBottom: "16px",
-            boxShadow: "0 8px 24px rgba(99, 102, 241, 0.2)",
+            boxShadow: "0 8px 24px rgba(64, 105, 225, 0.15)",
           }}
         >
           <Sparkles size={28} />
         </div>
 
-        <h3 style={{ fontSize: "18px", fontWeight: 800, color: "var(--text-main)", marginBottom: "6px", letterSpacing: "-0.01em" }}>
+        <h3 style={{ fontSize: "18px", fontWeight: 800, color: "var(--color-text-primary)", marginBottom: "6px", letterSpacing: "-0.01em" }}>
           Context-Aware Workspace: {activeCustomer.name}
         </h3>
-        <p style={{ fontSize: "13px", color: "var(--text-dim)", maxWidth: "460px", marginBottom: "24px", lineHeight: "1.5" }}>
+        <p style={{ fontSize: "13px", color: "var(--color-text-secondary)", maxWidth: "460px", marginBottom: "24px", lineHeight: "1.5" }}>
           {activeCustomer.description || "NeoSamvaad retrieves historical tickets from Neo4j before answering to prevent failed loops."}
         </p>
 
@@ -72,21 +72,23 @@ export const MessageList: React.FC<MessageListProps> = ({
               flexDirection: "column",
               alignItems: "flex-start",
               padding: "12px 14px",
-              backgroundColor: "var(--bg-surface-elevated)",
-              border: "1px solid var(--border-subtle)",
+              backgroundColor: "var(--color-surface-white)",
+              border: "1px solid var(--color-neutral-divider)",
               borderRadius: "var(--radius-md)",
               cursor: "pointer",
               textAlign: "left",
+              boxShadow: "var(--shadow-sm)",
+              transition: "border-color 0.15s ease",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "#ef4444", fontSize: "11px", fontWeight: 700 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "var(--color-state-error)", fontSize: "11px", fontWeight: 700 }}>
               <ShieldCheck size={14} />
               <span>TEST SCENARIO A</span>
             </div>
-            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--text-main)", marginBottom: "2px" }}>
+            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "2px" }}>
               "My account still isn't working."
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+            <div style={{ fontSize: "11px", color: "var(--color-text-placeholder)" }}>
               Inspects failed ticket T-101 and avoids repeating password reset.
             </div>
           </button>
@@ -98,21 +100,23 @@ export const MessageList: React.FC<MessageListProps> = ({
               flexDirection: "column",
               alignItems: "flex-start",
               padding: "12px 14px",
-              backgroundColor: "var(--bg-surface-elevated)",
-              border: "1px solid var(--border-subtle)",
+              backgroundColor: "var(--color-surface-white)",
+              border: "1px solid var(--color-neutral-divider)",
               borderRadius: "var(--radius-md)",
               cursor: "pointer",
               textAlign: "left",
+              boxShadow: "var(--shadow-sm)",
+              transition: "border-color 0.15s ease",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "#f59e0b", fontSize: "11px", fontWeight: 700 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "var(--color-secondary)", fontSize: "11px", fontWeight: 700 }}>
               <Key size={14} />
               <span>TEST SCENARIO B</span>
             </div>
-            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--text-main)", marginBottom: "2px" }}>
+            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "2px" }}>
               "Did you clear my session cache?"
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+            <div style={{ fontSize: "11px", color: "var(--color-text-placeholder)" }}>
               Acknowledges unrecorded action cannot be confirmed from history.
             </div>
           </button>
@@ -124,21 +128,23 @@ export const MessageList: React.FC<MessageListProps> = ({
               flexDirection: "column",
               alignItems: "flex-start",
               padding: "12px 14px",
-              backgroundColor: "var(--bg-surface-elevated)",
-              border: "1px solid var(--border-subtle)",
+              backgroundColor: "var(--color-surface-white)",
+              border: "1px solid var(--color-neutral-divider)",
               borderRadius: "var(--radius-md)",
               cursor: "pointer",
               textAlign: "left",
+              boxShadow: "var(--shadow-sm)",
+              transition: "border-color 0.15s ease",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "#10b981", fontSize: "11px", fontWeight: 700 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "var(--color-state-success)", fontSize: "11px", fontWeight: 700 }}>
               <Database size={14} />
               <span>TEST SCENARIO C</span>
             </div>
-            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--text-main)", marginBottom: "2px" }}>
+            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "2px" }}>
               "I need help setting up my account."
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+            <div style={{ fontSize: "11px", color: "var(--color-text-placeholder)" }}>
               Gracefully handles brand new customer with zero records.
             </div>
           </button>
@@ -147,14 +153,14 @@ export const MessageList: React.FC<MessageListProps> = ({
         <div
           style={{
             padding: "8px 16px",
-            backgroundColor: "rgba(255, 255, 255, 0.03)",
+            backgroundColor: "var(--color-surface-background)",
             borderRadius: "var(--radius-full)",
-            border: "1px solid var(--border-subtle)",
+            border: "1px solid var(--color-neutral-divider)",
             fontSize: "11.5px",
-            color: "var(--text-dim)",
+            color: "var(--color-text-secondary)",
           }}
         >
-          Customer ID: <code style={{ color: "var(--accent-cyan)", fontWeight: 700 }}>{activeCustomer.id}</code> • Tier: <strong style={{ color: "var(--text-main)" }}>{activeCustomer.tier}</strong>
+          Customer ID: <code style={{ color: "var(--color-primary)", fontWeight: 700 }}>{activeCustomer.id}</code> • Tier: <strong style={{ color: "var(--color-text-primary)" }}>{activeCustomer.tier}</strong>
         </div>
       </div>
     );
@@ -184,12 +190,12 @@ export const MessageList: React.FC<MessageListProps> = ({
             alignItems: "center",
             gap: "12px",
             padding: "14px 18px",
-            backgroundColor: "var(--bg-surface-elevated)",
+            backgroundColor: "var(--color-surface-white)",
             borderRadius: "var(--radius-md)",
-            border: "1px solid var(--border-subtle)",
+            border: "1px solid var(--color-neutral-divider)",
             maxWidth: "340px",
             marginBottom: "16px",
-            boxShadow: "var(--shadow-md)",
+            boxShadow: "var(--shadow-sm)",
           }}
         >
           <div
@@ -198,14 +204,14 @@ export const MessageList: React.FC<MessageListProps> = ({
               width: "20px",
               height: "20px",
               borderRadius: "50%",
-              background: "var(--grad-primary)",
+              background: "var(--color-primary)",
             }}
           />
           <div>
-            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--text-main)" }}>
+            <div style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-primary)" }}>
               Querying Neo4j Knowledge Graph...
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+            <div style={{ fontSize: "11px", color: "var(--color-text-placeholder)" }}>
               Traversing tickets & grounding response
             </div>
           </div>

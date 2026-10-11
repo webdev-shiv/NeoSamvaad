@@ -31,13 +31,13 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
   const getConfidenceBadge = () => {
     switch (confidenceLevel) {
       case "GROUNDED_HIGH":
-        return { label: "Fully Grounded", color: "#34d399", bg: "rgba(16, 185, 129, 0.15)" };
+        return { label: "Fully Grounded", color: "var(--color-state-success)", bg: "var(--color-state-success-light)" };
       case "LIMITED_EVIDENCE":
-        return { label: "Limited Evidence", color: "#fbbf24", bg: "rgba(245, 158, 11, 0.15)" };
+        return { label: "Limited Evidence", color: "var(--color-secondary)", bg: "var(--color-secondary-light)" };
       case "NO_HISTORY":
-        return { label: "Zero Prior History", color: "#94a3b8", bg: "rgba(148, 163, 184, 0.15)" };
+        return { label: "Zero Prior History", color: "var(--color-text-placeholder)", bg: "var(--color-surface-background)" };
       default:
-        return { label: "Unconfirmed", color: "#f87171", bg: "rgba(239, 68, 68, 0.15)" };
+        return { label: "Unconfirmed", color: "var(--color-state-error)", bg: "var(--color-state-error-light)" };
     }
   };
 
@@ -62,8 +62,8 @@ ORDER BY t.created_at DESC;`;
     <aside
       className={`evidence-panel-container ${isOpenMobile ? "mobile-open" : ""}`}
       style={{
-        backgroundColor: "var(--bg-surface)",
-        borderLeft: "1px solid var(--border-subtle)",
+        backgroundColor: "var(--color-surface-white)",
+        borderLeft: "1px solid var(--color-neutral-divider)",
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -74,15 +74,15 @@ ORDER BY t.created_at DESC;`;
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Network size={18} color="var(--accent-primary)" />
-          <h2 style={{ fontSize: "14px", fontWeight: 800, color: "var(--text-main)", letterSpacing: "-0.01em" }}>
+          <Network size={18} color="var(--color-primary)" />
+          <h2 style={{ fontSize: "14px", fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.01em" }}>
             Neo4j Evidence Inspector
           </h2>
         </div>
         {onCloseMobile && (
           <button
             onClick={onCloseMobile}
-            style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer" }}
+            style={{ background: "none", border: "none", color: "var(--color-text-secondary)", cursor: "pointer" }}
             aria-label="Close Evidence Panel"
           >
             <X size={18} />
@@ -97,18 +97,18 @@ ORDER BY t.created_at DESC;`;
           alignItems: "center",
           justifyContent: "space-between",
           padding: "11px 14px",
-          backgroundColor: "var(--bg-surface-elevated)",
+          backgroundColor: "var(--color-surface-background)",
           borderRadius: "var(--radius-md)",
-          border: "1px solid var(--border-subtle)",
+          border: "1px solid var(--color-neutral-divider)",
           marginBottom: "16px",
           boxShadow: "var(--shadow-sm)",
         }}
       >
         <div>
-          <div style={{ fontSize: "10.5px", color: "var(--text-dim)", textTransform: "uppercase", fontWeight: 700 }}>
+          <div style={{ fontSize: "10.5px", color: "var(--color-text-placeholder)", textTransform: "uppercase", fontWeight: 700 }}>
             Subject Node
           </div>
-          <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--text-main)" }}>
+          <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--color-text-primary)" }}>
             {customer.name}
           </div>
         </div>
@@ -120,7 +120,7 @@ ORDER BY t.created_at DESC;`;
             borderRadius: "var(--radius-full)",
             backgroundColor: badge.bg,
             color: badge.color,
-            border: `1px solid ${badge.bg}`,
+            border: `1px solid ${badge.color}`,
           }}
         >
           {badge.label}
@@ -128,7 +128,7 @@ ORDER BY t.created_at DESC;`;
       </div>
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: "6px", marginBottom: "14px", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "8px" }}>
+      <div style={{ display: "flex", gap: "6px", marginBottom: "14px", borderBottom: "1px solid var(--color-neutral-divider)", paddingBottom: "8px" }}>
         <button
           onClick={() => setActiveTab("graph")}
           style={{
@@ -139,12 +139,13 @@ ORDER BY t.created_at DESC;`;
             gap: "5px",
             padding: "7px 8px",
             borderRadius: "var(--radius-sm)",
-            backgroundColor: activeTab === "graph" ? "var(--bg-surface-elevated)" : "transparent",
-            color: activeTab === "graph" ? "var(--text-main)" : "var(--text-muted)",
-            border: activeTab === "graph" ? "1px solid var(--accent-primary)" : "1px solid transparent",
+            backgroundColor: activeTab === "graph" ? "var(--color-primary-light)" : "transparent",
+            color: activeTab === "graph" ? "var(--color-primary)" : "var(--color-text-secondary)",
+            border: activeTab === "graph" ? "1px solid var(--color-primary)" : "1px solid transparent",
             fontSize: "11.5px",
             fontWeight: 700,
             cursor: "pointer",
+            transition: "all 0.15s ease",
           }}
         >
           <Network size={13} />
@@ -160,12 +161,13 @@ ORDER BY t.created_at DESC;`;
             gap: "5px",
             padding: "7px 8px",
             borderRadius: "var(--radius-sm)",
-            backgroundColor: activeTab === "records" ? "var(--bg-surface-elevated)" : "transparent",
-            color: activeTab === "records" ? "var(--text-main)" : "var(--text-muted)",
-            border: activeTab === "records" ? "1px solid var(--accent-primary)" : "1px solid transparent",
+            backgroundColor: activeTab === "records" ? "var(--color-primary-light)" : "transparent",
+            color: activeTab === "records" ? "var(--color-primary)" : "var(--color-text-secondary)",
+            border: activeTab === "records" ? "1px solid var(--color-primary)" : "1px solid transparent",
             fontSize: "11.5px",
             fontWeight: 700,
             cursor: "pointer",
+            transition: "all 0.15s ease",
           }}
         >
           <Database size={13} />
@@ -181,12 +183,13 @@ ORDER BY t.created_at DESC;`;
             gap: "5px",
             padding: "7px 8px",
             borderRadius: "var(--radius-sm)",
-            backgroundColor: activeTab === "cypher" ? "var(--bg-surface-elevated)" : "transparent",
-            color: activeTab === "cypher" ? "var(--text-main)" : "var(--text-muted)",
-            border: activeTab === "cypher" ? "1px solid var(--accent-primary)" : "1px solid transparent",
+            backgroundColor: activeTab === "cypher" ? "var(--color-primary-light)" : "transparent",
+            color: activeTab === "cypher" ? "var(--color-primary)" : "var(--color-text-secondary)",
+            border: activeTab === "cypher" ? "1px solid var(--color-primary)" : "1px solid transparent",
             fontSize: "11.5px",
             fontWeight: 700,
             cursor: "pointer",
+            transition: "all 0.15s ease",
           }}
         >
           <Terminal size={13} />
@@ -198,7 +201,7 @@ ORDER BY t.created_at DESC;`;
       <div style={{ flex: 1 }}>
         {activeTab === "graph" ? (
           <div>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", marginBottom: "8px", fontWeight: 600 }}>
+            <div style={{ fontSize: "11px", color: "var(--color-text-placeholder)", marginBottom: "8px", fontWeight: 600 }}>
               Truthful Relationship Traversal:
             </div>
             <GraphPath
@@ -214,16 +217,16 @@ ORDER BY t.created_at DESC;`;
                 style={{
                   padding: "28px 16px",
                   textAlign: "center",
-                  backgroundColor: "var(--bg-deep)",
+                  backgroundColor: "var(--color-surface-background)",
                   borderRadius: "var(--radius-md)",
-                  border: "1px dashed var(--border-subtle)",
+                  border: "1px dashed var(--color-neutral-border)",
                 }}
               >
-                <Database size={26} color="var(--text-dim)" style={{ marginBottom: "8px" }} />
-                <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-muted)", marginBottom: "4px" }}>
+                <Database size={26} color="var(--color-neutral-icon)" style={{ marginBottom: "8px" }} />
+                <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--color-text-secondary)", marginBottom: "4px" }}>
                   Zero Graph Records
                 </div>
-                <p style={{ fontSize: "11.5px", color: "var(--text-dim)", lineHeight: "1.4" }}>
+                <p style={{ fontSize: "11.5px", color: "var(--color-text-placeholder)", lineHeight: "1.4" }}>
                   Neo4j returned zero tickets for {customer.id}. Model will strictly avoid inventing history.
                 </p>
               </div>
@@ -234,7 +237,7 @@ ORDER BY t.created_at DESC;`;
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 600 }}>
+              <span style={{ fontSize: "11px", color: "var(--color-text-placeholder)", fontWeight: 600 }}>
                 Cypher Query Engine
               </span>
               <button
@@ -245,26 +248,26 @@ ORDER BY t.created_at DESC;`;
                   gap: "4px",
                   padding: "3px 8px",
                   borderRadius: "var(--radius-xs)",
-                  backgroundColor: "var(--bg-surface-elevated)",
-                  border: "1px solid var(--border-subtle)",
-                  color: "var(--text-muted)",
+                  backgroundColor: "var(--color-surface-background)",
+                  border: "1px solid var(--color-neutral-border)",
+                  color: "var(--color-text-secondary)",
                   fontSize: "11px",
                   cursor: "pointer",
                 }}
               >
-                {copiedCypher ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                {copiedCypher ? <Check size={12} color="var(--color-state-success)" /> : <Copy size={12} />}
                 <span>{copiedCypher ? "Copied" : "Copy"}</span>
               </button>
             </div>
             <pre
               style={{
                 padding: "12px",
-                backgroundColor: "var(--bg-deep)",
-                border: "1px solid var(--border-subtle)",
+                backgroundColor: "var(--color-surface-background)",
+                border: "1px solid var(--color-neutral-border)",
                 borderRadius: "var(--radius-md)",
                 fontSize: "11px",
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                color: "var(--accent-cyan)",
+                color: "var(--color-accent-4)",
                 lineHeight: "1.5",
                 overflowX: "auto",
               }}
@@ -277,23 +280,23 @@ ORDER BY t.created_at DESC;`;
 
       {/* Uncertainty & Next Step Drawer */}
       {(uncertainty || suggestedNextStep) && (
-        <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--border-subtle)" }}>
+        <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--color-neutral-divider)" }}>
           {suggestedNextStep && (
             <div style={{ marginBottom: "10px" }}>
-              <div style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--accent-primary)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>
+              <div style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--color-primary)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>
                 Grounded Next Step:
               </div>
-              <div style={{ fontSize: "12px", color: "var(--text-main)", fontWeight: 500 }}>
+              <div style={{ fontSize: "12px", color: "var(--color-text-primary)", fontWeight: 500 }}>
                 {suggestedNextStep}
               </div>
             </div>
           )}
           {uncertainty && (
             <div>
-              <div style={{ fontSize: "10.5px", fontWeight: 700, color: "#fbbf24", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>
+              <div style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--color-secondary)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>
                 Uncertainty Boundary:
               </div>
-              <div style={{ fontSize: "11.5px", color: "var(--text-muted)", fontStyle: "italic" }}>
+              <div style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", fontStyle: "italic" }}>
                 {uncertainty}
               </div>
             </div>

@@ -99,6 +99,46 @@ class ApiClient {
     }
   }
 
+  public async fetchLiveGraph(limit: number = 60): Promise<{
+    nodes: Array<{ id: string; label: string; type: string; color?: string; properties?: Record<string, any> }>;
+    edges: Array<{ id: string; source: string; target: string; type: string }>;
+    total_nodes: number;
+    total_edges: number;
+    neo4j_connected: boolean;
+  }> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/graph/live?limit=${limit}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch live graph: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (err) {
+      console.warn("Failed to fetch live graph from backend:", err);
+      throw err;
+    }
+  }
+
+  public async reportIssue(data: {
+    customer_id: string;
+    product_id: string;
+    issue_description: string;
+    category?: string;
+    attempt_method?: string;
+    attempt_outcome?: string;
+    attempt_notes?: string;
+    resolution_status?: string;
+  }) {
+    const response = await fetch(`${API_BASE_URL}/issues/report`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to report issue: ${response.statusText}`);
+    }
+    return await response.json();
+  }
+
   private normalizeChatResponse(data: unknown): ChatResponse {
     const raw = (typeof data === "object" && data !== null ? data : {}) as Record<string, unknown>;
 
@@ -121,3 +161,4 @@ class ApiClient {
 }
 
 export const apiService = new ApiClient();
+

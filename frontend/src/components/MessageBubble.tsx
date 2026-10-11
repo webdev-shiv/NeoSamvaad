@@ -37,15 +37,15 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
             height: "36px",
             borderRadius: "var(--radius-md)",
             background: isCustomer
-              ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)"
-              : "linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%)",
-            border: isCustomer ? "none" : "1px solid var(--accent-primary)",
+              ? "linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-click) 100%)"
+              : "var(--color-primary-light)",
+            border: isCustomer ? "none" : "1px solid var(--color-primary)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: isCustomer ? "#ffffff" : "var(--accent-primary)",
+            color: isCustomer ? "#ffffff" : "var(--color-primary)",
             flexShrink: 0,
-            boxShadow: isCustomer ? "0 4px 12px rgba(59, 130, 246, 0.3)" : "0 4px 12px rgba(99, 102, 241, 0.15)",
+            boxShadow: isCustomer ? "0 4px 12px rgba(64, 105, 225, 0.25)" : "0 4px 12px rgba(64, 105, 225, 0.12)",
           }}
         >
           {isCustomer ? <User size={18} /> : <Bot size={18} />}
@@ -68,11 +68,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                 ? "var(--radius-lg) var(--radius-xs) var(--radius-lg) var(--radius-lg)"
                 : "var(--radius-xs) var(--radius-lg) var(--radius-lg) var(--radius-lg)",
               background: isCustomer
-                ? "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)"
-                : "var(--bg-surface-elevated)",
-              color: isCustomer ? "#ffffff" : "var(--text-main)",
-              border: isCustomer ? "none" : "1px solid var(--border-subtle)",
-              boxShadow: "var(--shadow-md)",
+                ? "linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-click) 100%)"
+                : "var(--color-surface-white)",
+              color: isCustomer ? "#ffffff" : "var(--color-text-primary)",
+              border: isCustomer ? "none" : "1px solid var(--color-neutral-border)",
+              boxShadow: "var(--shadow-sm)",
               fontSize: "13.5px",
               lineHeight: "1.6",
             }}
@@ -93,9 +93,9 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                   gap: "6px",
                   padding: "4px 10px",
                   borderRadius: "var(--radius-sm)",
-                  backgroundColor: "rgba(99, 102, 241, 0.08)",
-                  border: "1px solid rgba(99, 102, 241, 0.2)",
-                  color: "var(--accent-primary)",
+                  backgroundColor: "var(--color-primary-light)",
+                  border: "1px solid rgba(64, 105, 225, 0.25)",
+                  color: "var(--color-primary)",
                   fontSize: "11px",
                   fontWeight: 600,
                   cursor: "pointer",
@@ -111,8 +111,8 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                 <div
                   className="animate-fade-in"
                   style={{
-                    backgroundColor: "var(--bg-deep)",
-                    border: "1px solid var(--border-subtle)",
+                    backgroundColor: "var(--color-surface-background)",
+                    border: "1px solid var(--color-neutral-divider)",
                     borderRadius: "var(--radius-md)",
                     padding: "10px 14px",
                     fontSize: "11.5px",
@@ -121,19 +121,19 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                     gap: "6px",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#10b981" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-state-success)" }}>
                     <CheckCircle2 size={13} />
                     <span>1. Verified authorized customer context</span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#10b981" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-state-success)" }}>
                     <Database size={13} />
                     <span>2. Cypher graph traversal executed: {message.evidence?.length || 0} authoritative ticket(s) found</span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#10b981" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-state-success)" }}>
                     <ShieldCheck size={13} />
                     <span>3. Verified no duplicate execution of previously failed actions</span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--accent-cyan)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-primary)" }}>
                     <Sparkles size={13} />
                     <span>4. Synthesized grounded next steps with explicit uncertainty limits</span>
                   </div>
@@ -144,8 +144,8 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
               {message.suggestedNextStep && (
                 <div
                   style={{
-                    backgroundColor: "rgba(99, 102, 241, 0.07)",
-                    border: "1px solid rgba(99, 102, 241, 0.28)",
+                    backgroundColor: "var(--color-primary-light)",
+                    border: "1px solid rgba(64, 105, 225, 0.25)",
                     borderRadius: "var(--radius-md)",
                     padding: "10px 14px",
                     display: "flex",
@@ -153,12 +153,12 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                     gap: "10px",
                   }}
                 >
-                  <ArrowRight size={15} color="var(--accent-primary)" style={{ marginTop: "2px", flexShrink: 0 }} />
+                  <ArrowRight size={15} color="var(--color-primary)" style={{ marginTop: "2px", flexShrink: 0 }} />
                   <div>
-                    <span style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--accent-primary)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block" }}>
+                    <span style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--color-primary)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block" }}>
                       Recommended Next Step (Avoids Repeating Failed Cycles):
                     </span>
-                    <span style={{ fontSize: "12.5px", color: "var(--text-main)", fontWeight: 500 }}>
+                    <span style={{ fontSize: "12.5px", color: "var(--color-text-primary)", fontWeight: 500 }}>
                       {message.suggestedNextStep}
                     </span>
                   </div>
@@ -169,8 +169,8 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
               {message.uncertainty && (
                 <div
                   style={{
-                    backgroundColor: "rgba(245, 158, 11, 0.07)",
-                    border: "1px solid rgba(245, 158, 11, 0.28)",
+                    backgroundColor: "var(--color-secondary-light)",
+                    border: "1px solid rgba(244, 168, 37, 0.3)",
                     borderRadius: "var(--radius-md)",
                     padding: "9px 14px",
                     display: "flex",
@@ -178,12 +178,12 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                     gap: "10px",
                   }}
                 >
-                  <AlertTriangle size={15} color="#fbbf24" style={{ marginTop: "2px", flexShrink: 0 }} />
+                  <AlertTriangle size={15} color="var(--color-secondary)" style={{ marginTop: "2px", flexShrink: 0 }} />
                   <div>
-                    <span style={{ fontSize: "10.5px", fontWeight: 700, color: "#fbbf24", textTransform: "uppercase", letterSpacing: "0.04em", display: "block" }}>
+                    <span style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--color-secondary)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block" }}>
                       Uncertainty / History Limitation:
                     </span>
-                    <span style={{ fontSize: "11.5px", color: "var(--text-muted)" }}>
+                    <span style={{ fontSize: "11.5px", color: "var(--color-text-secondary)" }}>
                       {message.uncertainty}
                     </span>
                   </div>
@@ -197,11 +197,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                     style={{
                       fontSize: "10.5px",
                       fontWeight: 600,
-                      backgroundColor: "rgba(245, 158, 11, 0.15)",
-                      color: "#fbbf24",
+                      backgroundColor: "var(--color-secondary-light)",
+                      color: "var(--color-secondary)",
                       padding: "2px 8px",
                       borderRadius: "var(--radius-xs)",
-                      border: "1px solid rgba(245, 158, 11, 0.3)",
+                      border: "1px solid rgba(244, 168, 37, 0.3)",
                     }}
                   >
                     Demo Fixture
@@ -212,17 +212,17 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onRetry }
                     style={{
                       fontSize: "10.5px",
                       fontWeight: 600,
-                      backgroundColor: "rgba(16, 185, 129, 0.15)",
-                      color: "#34d399",
+                      backgroundColor: "var(--color-state-success-light)",
+                      color: "var(--color-state-success)",
                       padding: "2px 8px",
                       borderRadius: "var(--radius-xs)",
-                      border: "1px solid rgba(16, 185, 129, 0.3)",
+                      border: "1px solid rgba(0, 126, 20, 0.3)",
                     }}
                   >
                     Backed by {message.evidence.length} Neo4j Record(s)
                   </span>
                 )}
-                <span style={{ fontSize: "10.5px", color: "var(--text-dim)", marginLeft: "auto" }}>
+                <span style={{ fontSize: "10.5px", color: "var(--color-text-placeholder)", marginLeft: "auto" }}>
                   {new Date(message.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </span>
               </div>

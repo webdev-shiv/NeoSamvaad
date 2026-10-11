@@ -28,19 +28,19 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
   );
 
   const getScenarioIcon = (scenarioLabel?: string) => {
-    if (!scenarioLabel) return <Users size={15} />;
-    if (scenarioLabel.includes("Scenario A")) return <AlertTriangle size={15} color="#ef4444" />;
-    if (scenarioLabel.includes("Scenario B")) return <Key size={15} color="#f59e0b" />;
-    if (scenarioLabel.includes("Scenario C")) return <CheckCircle2 size={15} color="#10b981" />;
-    if (scenarioLabel.includes("Scenario D")) return <ShieldAlert size={15} color="#ec4899" />;
-    return <UserCheck size={15} color="#8b5cf6" />;
+    if (!scenarioLabel) return <Users size={15} color="var(--color-neutral-icon)" />;
+    if (scenarioLabel.includes("Scenario A")) return <AlertTriangle size={15} color="var(--color-state-error)" />;
+    if (scenarioLabel.includes("Scenario B")) return <Key size={15} color="var(--color-secondary)" />;
+    if (scenarioLabel.includes("Scenario C")) return <CheckCircle2 size={15} color="var(--color-state-success)" />;
+    if (scenarioLabel.includes("Scenario D")) return <ShieldAlert size={15} color="var(--color-accent-2)" />;
+    return <UserCheck size={15} color="var(--color-accent-1)" />;
   };
 
   return (
     <aside
       style={{
-        backgroundColor: "var(--bg-surface)",
-        borderRight: "1px solid var(--border-subtle)",
+        backgroundColor: "var(--color-surface-white)",
+        borderRight: "1px solid var(--color-neutral-divider)",
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -51,14 +51,14 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
     >
       <div style={{ marginBottom: "14px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-          <h2 style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--accent-primary)" }}>
+          <h2 style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--color-primary)" }}>
             Customer Personas
           </h2>
-          <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 600 }}>
+          <span style={{ fontSize: "11px", color: "var(--color-text-placeholder)", fontWeight: 600 }}>
             {DEMO_CUSTOMERS.length} Scenarios
           </span>
         </div>
-        <p style={{ fontSize: "11.5px", color: "var(--text-muted)", lineHeight: "1.4" }}>
+        <p style={{ fontSize: "11.5px", color: "var(--color-text-secondary)", lineHeight: "1.4" }}>
           Select a verified profile to test truthful graph-grounded reasoning.
         </p>
       </div>
@@ -70,13 +70,13 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
           alignItems: "center",
           gap: "8px",
           padding: "6px 10px",
-          backgroundColor: "var(--bg-primary)",
-          border: "1px solid var(--border-subtle)",
+          backgroundColor: "var(--color-surface-background)",
+          border: "1px solid var(--color-neutral-divider)",
           borderRadius: "var(--radius-sm)",
           marginBottom: "12px",
         }}
       >
-        <Search size={14} color="var(--text-dim)" />
+        <Search size={14} color="var(--color-neutral-icon)" />
         <input
           type="text"
           value={searchQuery}
@@ -85,7 +85,7 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
           style={{
             background: "none",
             border: "none",
-            color: "var(--text-main)",
+            color: "var(--color-text-primary)",
             fontSize: "12px",
             outline: "none",
             width: "100%",
@@ -107,12 +107,13 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
                 alignItems: "flex-start",
                 padding: "11px 12px",
                 borderRadius: "var(--radius-md)",
-                backgroundColor: isSelected ? "var(--bg-surface-elevated)" : "rgba(255, 255, 255, 0.015)",
-                border: isSelected ? "1px solid var(--accent-primary)" : "1px solid var(--border-subtle)",
-                boxShadow: isSelected ? "0 0 16px rgba(99, 102, 241, 0.18)" : "none",
+                backgroundColor: isSelected ? "var(--color-primary-light)" : "var(--color-surface-white)",
+                border: isSelected ? "1.5px solid var(--color-primary)" : "1px solid var(--color-neutral-divider)",
+                boxShadow: isSelected ? "0 2px 10px rgba(64, 105, 225, 0.15)" : "var(--shadow-sm)",
                 cursor: "pointer",
                 textAlign: "left",
                 position: "relative",
+                transition: "all 0.15s ease",
               }}
             >
               {isSelected && (
@@ -123,7 +124,7 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
                     top: "12px",
                     bottom: "12px",
                     width: "3px",
-                    backgroundColor: "var(--accent-primary)",
+                    backgroundColor: "var(--color-primary)",
                     borderRadius: "0 2px 2px 0",
                   }}
                 />
@@ -131,7 +132,7 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", marginBottom: "4px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
                   {getScenarioIcon(cust.scenarioLabel)}
-                  <span style={{ fontSize: "12.5px", fontWeight: 700, color: isSelected ? "var(--text-main)" : "var(--text-muted)" }}>
+                  <span style={{ fontSize: "12.5px", fontWeight: 700, color: isSelected ? "var(--color-primary)" : "var(--color-text-primary)" }}>
                     {cust.id}
                   </span>
                 </div>
@@ -141,20 +142,20 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
                     fontWeight: 600,
                     padding: "1px 6px",
                     borderRadius: "var(--radius-xs)",
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    color: "var(--text-dim)",
-                    border: "1px solid var(--border-subtle)",
+                    backgroundColor: "var(--color-surface-background)",
+                    color: "var(--color-text-secondary)",
+                    border: "1px solid var(--color-neutral-divider)",
                   }}
                 >
                   {cust.tier}
                 </span>
               </div>
 
-              <div style={{ fontSize: "12px", fontWeight: 600, color: isSelected ? "var(--accent-cyan)" : "var(--text-main)", marginBottom: "3px" }}>
+              <div style={{ fontSize: "12px", fontWeight: 600, color: isSelected ? "var(--color-primary-click)" : "var(--color-text-secondary)", marginBottom: "3px" }}>
                 {cust.name}
               </div>
 
-              <div style={{ fontSize: "11px", color: "var(--text-dim)", lineHeight: "1.3" }}>
+              <div style={{ fontSize: "11px", color: "var(--color-text-placeholder)", lineHeight: "1.3" }}>
                 {cust.description}
               </div>
             </button>
@@ -162,8 +163,8 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
         })}
       </div>
 
-      <div style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--border-subtle)" }}>
-        <label htmlFor="custom-cust-id" style={{ display: "block", fontSize: "11.5px", fontWeight: 600, color: "var(--text-muted)", marginBottom: "6px" }}>
+      <div style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--color-neutral-divider)" }}>
+        <label htmlFor="custom-cust-id" style={{ display: "block", fontSize: "11.5px", fontWeight: 600, color: "var(--color-text-secondary)", marginBottom: "6px" }}>
           Custom Customer Lookup:
         </label>
         <div style={{ display: "flex", gap: "6px" }}>
@@ -176,10 +177,10 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
             style={{
               flex: 1,
               padding: "7px 10px",
-              backgroundColor: "var(--bg-primary)",
-              border: "1px solid var(--border-highlight)",
+              backgroundColor: "var(--color-surface-background)",
+              border: "1px solid var(--color-neutral-border)",
               borderRadius: "var(--radius-sm)",
-              color: "var(--text-main)",
+              color: "var(--color-text-primary)",
               fontSize: "12px",
             }}
           />
@@ -187,13 +188,14 @@ export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
             onClick={onApplyCustomId}
             style={{
               padding: "7px 12px",
-              background: "var(--grad-primary)",
+              background: "var(--color-primary)",
               border: "none",
               color: "#ffffff",
               borderRadius: "var(--radius-sm)",
               fontSize: "12px",
               fontWeight: 600,
               cursor: "pointer",
+              boxShadow: "0 2px 8px rgba(64, 105, 225, 0.25)",
             }}
           >
             Load
