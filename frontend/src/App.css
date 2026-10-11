@@ -1,0 +1,18 @@
+/* Responsive Mobile Drawer Styles */
+@media (max-width: 1200px) {
+  .evidence-panel-container {
+    display: none;
+  }
+
+  .evidence-panel-container.mobile-open {
+    display: flex !important;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    width: 380px;
+    max-width: 90vw;
+    z-index: 50;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+  }
+}

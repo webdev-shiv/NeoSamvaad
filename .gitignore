@@ -1,0 +1,22 @@
+# Environment & secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# Node dependencies & build
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+
+# Python cache & tests
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+*.log
