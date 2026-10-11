@@ -4,24 +4,54 @@ import subprocess
 import time
 import signal
 
+# Ensure UTF-8 output on Windows consoles if supported
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
 FRONTEND_DIR = os.path.join(ROOT_DIR, "frontend")
 
+def free_port(port):
+    """Release port if held by a stale zombie process on Windows"""
+    if os.name == "nt":
+        try:
+            out = subprocess.check_output(f'netstat -ano | findstr :{port}', shell=True).decode()
+            pids = set()
+            for line in out.strip().splitlines():
+                if "LISTENING" in line:
+                    parts = line.split()
+                    if parts:
+                        pids.add(parts[-1])
+            curr_pid = str(os.getpid())
+            for pid in pids:
+                if pid != curr_pid and pid != "0":
+                    subprocess.call(f'taskkill /F /PID {pid}', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+
 def print_banner():
     print("=" * 64)
-    print("  🚀 NeoSamvaad — Context-Aware Support Engine")
+    print("  >> NeoSamvaad -- Context-Aware Support Engine")
     print("  " + "-" * 60)
-    print("  🌐 Frontend URL:  http://localhost:5173")
-    print("  🔌 Backend API:   http://localhost:8000")
-    print("  🩺 Health Status: http://localhost:8000/health")
-    print("  ☁️  Vercel Cloud:  https://frontend-five-gamma-lpn1jh8m7z.vercel.app")
+    print("  [*] Frontend URL:  http://localhost:5173")
+    print("  [*] Backend API:   http://localhost:8000")
+    print("  [*] Health Status: http://localhost:8000/health")
+    print("  [*] Vercel Cloud:  https://frontend-five-gamma-lpn1jh8m7z.vercel.app")
     print("  " + "-" * 60)
     print("  Press Ctrl+C to stop both servers.")
     print("=" * 64)
 
 def main():
     print_banner()
+
+    # Automatically free ports if previously occupied
+    free_port(8000)
+    free_port(5173)
+    time.sleep(1)
 
     # Prepare environment with backend on PYTHONPATH
     env = os.environ.copy()
@@ -64,16 +94,18 @@ def main():
         shell=(os.name == "nt"),
     )
 
-    print("\n✅ Both servers are LIVE and ready!")
-    print("👉 Open your browser at: http://localhost:5173\n")
+    print("\n[+] Both servers are LIVE and ready!")
+    print(">>> Open your browser at: http://localhost:5173\n")
 
     def shutdown(signum=None, frame=None):
-        print("\n🛑 Stopping servers...")
+        print("\n[!] Stopping servers...")
         try:
             frontend_proc.terminate()
             backend_proc.terminate()
         except Exception:
             pass
+        free_port(8000)
+        free_port(5173)
         sys.exit(0)
 
     signal.signal(signal.SIGINT, shutdown)
