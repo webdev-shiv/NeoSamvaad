@@ -62,7 +62,7 @@ describe("MessageBubble Component", () => {
     expect(screen.getByText(/I reviewed your records/i)).toBeDefined();
     expect(screen.getByText("Check IAM account lock status.")).toBeDefined();
     expect(screen.getByText(/Root cause unconfirmed until IAM logs are checked/i)).toBeDefined();
-    expect(screen.getByText("Mock Fixture Output")).toBeDefined();
+    expect(screen.getByText("Demo Fixture")).toBeDefined();
     expect(screen.getByText(/Backed by 1 Neo4j Record/i)).toBeDefined();
   });
 
@@ -77,7 +77,7 @@ describe("MessageBubble Component", () => {
     render(<MessageBubble message={message} />);
 
     expect(screen.getByText("My account still isn't working.")).toBeDefined();
-    expect(screen.queryByText(/Mock Fixture Output/i)).toBeNull();
+    expect(screen.queryByText(/Demo Fixture/i)).toBeNull();
   });
 });
 
@@ -108,6 +108,6 @@ describe("GraphPath Component", () => {
 
   it("renders truthful empty message when zero evidence exists", () => {
     render(<GraphPath evidence={[]} />);
-    expect(screen.getByText("No graph relationships retrieved for this query.")).toBeDefined();
+    expect(screen.getByText(/No graph relationships retrieved/i)).toBeDefined();
   });
 });

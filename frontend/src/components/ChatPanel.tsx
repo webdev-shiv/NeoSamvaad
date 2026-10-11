@@ -38,45 +38,63 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        backgroundColor: "var(--bg-primary)",
+        backgroundColor: "var(--bg-deep)",
         position: "relative",
       }}
       aria-label="Customer Support Workspace"
     >
-      {/* Subheader */}
+      {/* Subheader Toolbar */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "10px 24px",
-          backgroundColor: "var(--bg-surface)",
+          padding: "12px 24px",
+          backgroundColor: "rgba(16, 23, 42, 0.7)",
+          backdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--border-subtle)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <UserCheck size={16} color="var(--accent-blue)" />
-          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-main)" }}>
-            {activeCustomer.name}
-          </span>
-          <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>
-            ({activeCustomer.id})
-          </span>
-          {activeCustomer.scenarioLabel && (
-            <span
-              style={{
-                fontSize: "10.5px",
-                fontWeight: 600,
-                backgroundColor: "var(--bg-surface-elevated)",
-                color: "var(--text-muted)",
-                padding: "2px 8px",
-                borderRadius: "12px",
-                border: "1px solid var(--border-subtle)",
-              }}
-            >
-              {activeCustomer.scenarioLabel}
-            </span>
-          )}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div
+            style={{
+              width: "28px",
+              height: "28px",
+              borderRadius: "var(--radius-sm)",
+              backgroundColor: "rgba(99, 102, 241, 0.15)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--accent-primary)",
+            }}
+          >
+            <UserCheck size={16} />
+          </div>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-main)" }}>
+                {activeCustomer.name}
+              </span>
+              <span style={{ fontSize: "11px", color: "var(--accent-cyan)", fontFamily: "monospace" }}>
+                [{activeCustomer.id}]
+              </span>
+              {activeCustomer.scenarioLabel && (
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    backgroundColor: "rgba(99, 102, 241, 0.12)",
+                    color: "var(--accent-primary)",
+                    padding: "2px 8px",
+                    borderRadius: "var(--radius-full)",
+                    border: "1px solid rgba(99, 102, 241, 0.25)",
+                  }}
+                >
+                  {activeCustomer.scenarioLabel}
+                </span>
+              )}
+            </div>
+          </div>
         </div>
 
         {onOpenMobileEvidence && (
@@ -86,12 +104,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
               display: "flex",
               alignItems: "center",
               gap: "6px",
-              padding: "4px 10px",
+              padding: "6px 12px",
               borderRadius: "var(--radius-sm)",
               backgroundColor: "var(--bg-surface-elevated)",
               border: "1px solid var(--border-subtle)",
-              color: "var(--accent-blue)",
+              color: "var(--accent-primary)",
               fontSize: "12px",
+              fontWeight: 600,
               cursor: "pointer",
             }}
           >
@@ -116,6 +135,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
         isLoading={isLoading}
         activeCustomer={activeCustomer}
         onRetryMessage={onRetryLastMessage}
+        onSelectPrompt={onSendMessage}
       />
 
       {/* Message Composer */}

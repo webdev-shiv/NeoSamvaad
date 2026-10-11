@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { EvidenceItem, GraphPath as GraphPathType, CustomerProfile, ConfidenceLevel } from "../types";
 import { EvidenceCard } from "./EvidenceCard";
 import { GraphPath } from "./GraphPath";
-import { Network, Database, X } from "lucide-react";
+import { Network, Database, X, Terminal, Copy, Check } from "lucide-react";
 
 interface EvidencePanelProps {
   customer: CustomerProfile;
@@ -25,22 +25,38 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
   isOpenMobile = false,
   onCloseMobile,
 }) => {
-  const [activeTab, setActiveTab] = useState<"graph" | "records">("graph");
+  const [activeTab, setActiveTab] = useState<"graph" | "records" | "cypher">("graph");
+  const [copiedCypher, setCopiedCypher] = useState(false);
 
   const getConfidenceBadge = () => {
     switch (confidenceLevel) {
       case "GROUNDED_HIGH":
-        return { label: "Fully Grounded", color: "#10b981", bg: "rgba(16, 185, 129, 0.15)" };
+        return { label: "Fully Grounded", color: "#34d399", bg: "rgba(16, 185, 129, 0.15)" };
       case "LIMITED_EVIDENCE":
-        return { label: "Limited Evidence", color: "#f59e0b", bg: "rgba(245, 158, 11, 0.15)" };
+        return { label: "Limited Evidence", color: "#fbbf24", bg: "rgba(245, 158, 11, 0.15)" };
       case "NO_HISTORY":
-        return { label: "No Prior History", color: "#64748b", bg: "rgba(100, 116, 139, 0.15)" };
+        return { label: "Zero Prior History", color: "#94a3b8", bg: "rgba(148, 163, 184, 0.15)" };
       default:
-        return { label: "Unconfirmed", color: "#ef4444", bg: "rgba(239, 68, 68, 0.15)" };
+        return { label: "Unconfirmed", color: "#f87171", bg: "rgba(239, 68, 68, 0.15)" };
     }
   };
 
   const badge = getConfidenceBadge();
+
+  const generatedCypher = `// Authoritative Traversal for ${customer.id}
+MATCH (c:Customer {id: '${customer.id}'})
+OPTIONAL MATCH (c)-[:HAS_TICKET]->(t:Ticket)
+OPTIONAL MATCH (t)-[:REGARDS_ISSUE]->(i:Issue)
+OPTIONAL MATCH (i)-[:TRIED_ACTION]->(a:Attempt)
+OPTIONAL MATCH (a)-[:RESULTED_IN]->(o:Outcome)
+RETURN c, t, i, a, o
+ORDER BY t.created_at DESC;`;
+
+  const handleCopyCypher = () => {
+    navigator.clipboard.writeText(generatedCypher);
+    setCopiedCypher(true);
+    setTimeout(() => setCopiedCypher(false), 2000);
+  };
 
   return (
     <aside
@@ -52,15 +68,15 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
         flexDirection: "column",
         height: "100%",
         overflowY: "auto",
-        padding: "16px",
+        padding: "18px",
       }}
       aria-label="Neo4j Evidence and Graph Panel"
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Network size={18} color="var(--accent-blue)" />
-          <h2 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-main)" }}>
-            Neo4j Evidence Panel
+          <Network size={18} color="var(--accent-primary)" />
+          <h2 style={{ fontSize: "14px", fontWeight: 800, color: "var(--text-main)", letterSpacing: "-0.01em" }}>
+            Neo4j Evidence Inspector
           </h2>
         </div>
         {onCloseMobile && (
@@ -74,32 +90,37 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
         )}
       </div>
 
+      {/* Target Identity Pill */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "10px 12px",
+          padding: "11px 14px",
           backgroundColor: "var(--bg-surface-elevated)",
           borderRadius: "var(--radius-md)",
           border: "1px solid var(--border-subtle)",
           marginBottom: "16px",
+          boxShadow: "var(--shadow-sm)",
         }}
       >
         <div>
-          <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>Subject Identity</div>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--text-main)" }}>
-            {customer.name} ({customer.id})
+          <div style={{ fontSize: "10.5px", color: "var(--text-dim)", textTransform: "uppercase", fontWeight: 700 }}>
+            Subject Node
+          </div>
+          <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--text-main)" }}>
+            {customer.name}
           </div>
         </div>
         <span
           style={{
             fontSize: "11px",
             fontWeight: 700,
-            padding: "2px 8px",
-            borderRadius: "12px",
+            padding: "2px 10px",
+            borderRadius: "var(--radius-full)",
             backgroundColor: badge.bg,
             color: badge.color,
+            border: `1px solid ${badge.bg}`,
           }}
         >
           {badge.label}
@@ -115,19 +136,19 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "6px",
-            padding: "6px 10px",
+            gap: "5px",
+            padding: "7px 8px",
             borderRadius: "var(--radius-sm)",
             backgroundColor: activeTab === "graph" ? "var(--bg-surface-elevated)" : "transparent",
             color: activeTab === "graph" ? "var(--text-main)" : "var(--text-muted)",
-            border: activeTab === "graph" ? "1px solid var(--accent-blue)" : "1px solid transparent",
-            fontSize: "12px",
-            fontWeight: 600,
+            border: activeTab === "graph" ? "1px solid var(--accent-primary)" : "1px solid transparent",
+            fontSize: "11.5px",
+            fontWeight: 700,
             cursor: "pointer",
           }}
         >
-          <Network size={14} />
-          Graph Path ({graphPaths?.length || (evidence.length > 0 ? 1 : 0)})
+          <Network size={13} />
+          <span>Graph</span>
         </button>
         <button
           onClick={() => setActiveTab("records")}
@@ -136,19 +157,40 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "6px",
-            padding: "6px 10px",
+            gap: "5px",
+            padding: "7px 8px",
             borderRadius: "var(--radius-sm)",
             backgroundColor: activeTab === "records" ? "var(--bg-surface-elevated)" : "transparent",
             color: activeTab === "records" ? "var(--text-main)" : "var(--text-muted)",
-            border: activeTab === "records" ? "1px solid var(--accent-blue)" : "1px solid transparent",
-            fontSize: "12px",
-            fontWeight: 600,
+            border: activeTab === "records" ? "1px solid var(--accent-primary)" : "1px solid transparent",
+            fontSize: "11.5px",
+            fontWeight: 700,
             cursor: "pointer",
           }}
         >
-          <Database size={14} />
-          Records ({evidence.length})
+          <Database size={13} />
+          <span>Records ({evidence.length})</span>
+        </button>
+        <button
+          onClick={() => setActiveTab("cypher")}
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "5px",
+            padding: "7px 8px",
+            borderRadius: "var(--radius-sm)",
+            backgroundColor: activeTab === "cypher" ? "var(--bg-surface-elevated)" : "transparent",
+            color: activeTab === "cypher" ? "var(--text-main)" : "var(--text-muted)",
+            border: activeTab === "cypher" ? "1px solid var(--accent-primary)" : "1px solid transparent",
+            fontSize: "11.5px",
+            fontWeight: 700,
+            cursor: "pointer",
+          }}
+        >
+          <Terminal size={13} />
+          <span>Cypher</span>
         </button>
       </div>
 
@@ -156,7 +198,7 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
       <div style={{ flex: 1 }}>
         {activeTab === "graph" ? (
           <div>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", marginBottom: "8px" }}>
+            <div style={{ fontSize: "11px", color: "var(--text-dim)", marginBottom: "8px", fontWeight: 600 }}>
               Truthful Relationship Traversal:
             </div>
             <GraphPath
@@ -165,52 +207,93 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
               suggestedNextStep={suggestedNextStep}
             />
           </div>
-        ) : (
+        ) : activeTab === "records" ? (
           <div>
             {evidence.length === 0 ? (
               <div
                 style={{
-                  padding: "24px 16px",
+                  padding: "28px 16px",
                   textAlign: "center",
-                  backgroundColor: "var(--bg-primary)",
+                  backgroundColor: "var(--bg-deep)",
                   borderRadius: "var(--radius-md)",
                   border: "1px dashed var(--border-subtle)",
                 }}
               >
-                <Database size={24} color="var(--text-dim)" style={{ marginBottom: "8px" }} />
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-muted)", marginBottom: "4px" }}>
-                  No Historical Records Found
+                <Database size={26} color="var(--text-dim)" style={{ marginBottom: "8px" }} />
+                <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-muted)", marginBottom: "4px" }}>
+                  Zero Graph Records
                 </div>
-                <p style={{ fontSize: "11px", color: "var(--text-dim)" }}>
-                  Neo4j returned zero tickets for {customer.id}. Model will strictly avoid inventing past history.
+                <p style={{ fontSize: "11.5px", color: "var(--text-dim)", lineHeight: "1.4" }}>
+                  Neo4j returned zero tickets for {customer.id}. Model will strictly avoid inventing history.
                 </p>
               </div>
             ) : (
               evidence.map((item) => <EvidenceCard key={item.ticket_id} item={item} />)
             )}
           </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 600 }}>
+                Cypher Query Engine
+              </span>
+              <button
+                onClick={handleCopyCypher}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  padding: "3px 8px",
+                  borderRadius: "var(--radius-xs)",
+                  backgroundColor: "var(--bg-surface-elevated)",
+                  border: "1px solid var(--border-subtle)",
+                  color: "var(--text-muted)",
+                  fontSize: "11px",
+                  cursor: "pointer",
+                }}
+              >
+                {copiedCypher ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                <span>{copiedCypher ? "Copied" : "Copy"}</span>
+              </button>
+            </div>
+            <pre
+              style={{
+                padding: "12px",
+                backgroundColor: "var(--bg-deep)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "var(--radius-md)",
+                fontSize: "11px",
+                fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                color: "var(--accent-cyan)",
+                lineHeight: "1.5",
+                overflowX: "auto",
+              }}
+            >
+              {generatedCypher}
+            </pre>
+          </div>
         )}
       </div>
 
-      {/* Uncertainty and Next Step Drawer */}
+      {/* Uncertainty & Next Step Drawer */}
       {(uncertainty || suggestedNextStep) && (
-        <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid var(--border-subtle)" }}>
+        <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--border-subtle)" }}>
           {suggestedNextStep && (
-            <div style={{ marginBottom: "8px" }}>
-              <div style={{ fontSize: "11px", fontWeight: 700, color: "var(--accent-blue)", textTransform: "uppercase", marginBottom: "2px" }}>
+            <div style={{ marginBottom: "10px" }}>
+              <div style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--accent-primary)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>
                 Grounded Next Step:
               </div>
-              <div style={{ fontSize: "12px", color: "var(--text-main)" }}>
+              <div style={{ fontSize: "12px", color: "var(--text-main)", fontWeight: 500 }}>
                 {suggestedNextStep}
               </div>
             </div>
           )}
           {uncertainty && (
             <div>
-              <div style={{ fontSize: "11px", fontWeight: 700, color: "var(--text-dim)", textTransform: "uppercase", marginBottom: "2px" }}>
+              <div style={{ fontSize: "10.5px", fontWeight: 700, color: "#fbbf24", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>
                 Uncertainty Boundary:
               </div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontStyle: "italic" }}>
+              <div style={{ fontSize: "11.5px", color: "var(--text-muted)", fontStyle: "italic" }}>
                 {uncertainty}
               </div>
             </div>
